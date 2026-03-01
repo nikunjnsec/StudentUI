@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>
+  <mat-icon style="vertical-align: middle; margin-right: 8px;">group</mat-icon>
+  Manage Enrollments — {{ cls.name }}
+</h2>
+
+<mat-dialog-content class="dialog-content">
+
+  <h3 class="section-title">Enrolled Students</h3>
+
+  @if (enrolledStudents.length === 0) {
+    <p class="empty-msg">No students enrolled yet.</p>
+  } @else {
+    <mat-list>
+      @for (student of enrolledStudents; track student.id) {
+        <mat-list-item>
+          <mat-icon matListItemIcon>person</mat-icon>
+          <span matListItemTitle>{{ fullName(student) }}</span>
+          <span matListItemLine>{{ student.email }}</span>
+          <button matListItemMeta mat-icon-button color="warn"
+                  (click)="unenroll(student)" title="Remove">
+            <mat-icon>person_remove</mat-icon>
+          </button>
+        </mat-list-item>
+      }
+    </mat-list>
+  }
+
+  <mat-divider style="margin: 16px 0" />
+
+  <h3 class="section-title">Add Student</h3>
+
+  @if (availableStudents.length === 0) {
+    <p class="empty-msg">All students are already enrolled.</p>
+  } @else {
+    <div class="add-row">
+      <mat-form-field appearance="outline" class="student-select">
+        <mat-label>Select student</mat-label>
+        <mat-select [(ngModel)]="selectedStudentId">
+          @for (s of availableStudents; track s.id) {
+            <mat-option [value]="s.id">{{ fullName(s) }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary"
+              [disabled]="!selectedStudentId || enrolling"
+              (click)="enroll()">
+        <mat-icon>person_add</mat-icon> Enroll
+      </button>
+    </div>
+  }
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

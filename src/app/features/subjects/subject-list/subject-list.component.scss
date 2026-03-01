@@ -1,0 +1,25 @@
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h2 { margin: 0; }
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px;
+}
+
+.table-container {
+  border-radius: 4px;
+  overflow: auto;
+}
+
+.no-data {
+  padding: 24px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.54);
+}

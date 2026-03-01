@@ -1,0 +1,62 @@
+<div class="list-header">
+  <h2>Classes</h2>
+  <button mat-raised-button color="primary" (click)="openAdd()">
+    <mat-icon>add</mat-icon> Add Class
+  </button>
+</div>
+
+@if (loading()) {
+  <div class="spinner-container">
+    <mat-spinner diameter="48" />
+  </div>
+} @else {
+  <div class="table-container mat-elevation-z2">
+    <table mat-table [dataSource]="classes()">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let c">{{ c.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let c">{{ c.description }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef>Start Date</th>
+        <td mat-cell *matCellDef="let c">{{ c.startDate | date:'mediumDate' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef>End Date</th>
+        <td mat-cell *matCellDef="let c">{{ c.endDate | date:'mediumDate' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let c">
+          <button mat-icon-button color="primary" (click)="openEdit(c)" title="Edit">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="delete(c)" title="Delete">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button (click)="manageEnrollments(c)" title="Manage Enrollments"
+                  style="color: #5c6bc0;">
+            <mat-icon>group</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+          No classes found.
+        </td>
+      </tr>
+    </table>
+  </div>
+}
