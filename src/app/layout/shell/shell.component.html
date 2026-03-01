@@ -1,23 +1,25 @@
 <mat-sidenav-container class="shell-container">
-  <mat-sidenav mode="side" opened class="sidenav">
-    <mat-toolbar color="primary" class="sidenav-header">
-      <span>StudentApp</span>
-    </mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/students" routerLinkActive="active-link">
-        <mat-icon matListItemIcon>school</mat-icon>
-        <span matListItemTitle>Students</span>
-      </a>
-      <a mat-list-item routerLink="/classes" routerLinkActive="active-link">
-        <mat-icon matListItemIcon>class</mat-icon>
-        <span matListItemTitle>Classes</span>
-      </a>
-      <a mat-list-item routerLink="/subjects" routerLinkActive="active-link">
-        <mat-icon matListItemIcon>book</mat-icon>
-        <span matListItemTitle>Subjects</span>
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
+  @if (!isMobile()) {
+    <mat-sidenav mode="side" opened class="sidenav">
+      <mat-toolbar color="primary" class="sidenav-header">
+        <span>StudentApp</span>
+      </mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/students" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>school</mat-icon>
+          <span matListItemTitle>Students</span>
+        </a>
+        <a mat-list-item routerLink="/classes" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>class</mat-icon>
+          <span matListItemTitle>Classes</span>
+        </a>
+        <a mat-list-item routerLink="/subjects" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>book</mat-icon>
+          <span matListItemTitle>Subjects</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+  }
 
   <mat-sidenav-content class="main-content">
     <mat-toolbar color="primary" class="top-toolbar">
@@ -27,6 +29,24 @@
         <mat-icon>logout</mat-icon>
       </button>
     </mat-toolbar>
+
+    @if (isMobile()) {
+      <nav class="mobile-nav">
+        <a mat-button routerLink="/students" routerLinkActive="mobile-active">
+          <mat-icon>school</mat-icon>
+          <span>Students</span>
+        </a>
+        <a mat-button routerLink="/classes" routerLinkActive="mobile-active">
+          <mat-icon>class</mat-icon>
+          <span>Classes</span>
+        </a>
+        <a mat-button routerLink="/subjects" routerLinkActive="mobile-active">
+          <mat-icon>book</mat-icon>
+          <span>Subjects</span>
+        </a>
+      </nav>
+    }
+
     <div class="content-area">
       <router-outlet />
     </div>

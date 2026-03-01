@@ -5,6 +5,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -20,6 +23,11 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class ShellComponent {
   private auth = inject(AuthService);
+
+  isMobile = toSignal(
+    inject(BreakpointObserver).observe('(max-width: 767px)').pipe(map(r => r.matches)),
+    { initialValue: false }
+  );
 
   logout() {
     this.auth.logout();

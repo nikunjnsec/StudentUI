@@ -37,3 +37,36 @@
 .active-link {
   background-color: rgba(0, 0, 0, 0.08);
 }
+
+/* Mobile top nav bar — visible only on small screens via @if (isMobile()) in template */
+.mobile-nav {
+  display: flex;
+  flex-direction: row;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0 8px;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.7);
+    text-decoration: none;
+    padding: 8px 4px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+    }
+  }
+
+  .mobile-active {
+    color: #3f51b5;
+    font-weight: 500;
+  }
+}
