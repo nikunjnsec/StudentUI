@@ -9,6 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Student } from '../../../core/models/student.model';
 import { StudentService } from '../../../core/services/student.service';
 import { StudentFormComponent } from '../student-form/student-form.component';
+import { StudentEnrollmentDialogComponent } from '../student-enrollment-dialog/student-enrollment-dialog.component';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
@@ -49,6 +50,10 @@ export class StudentListComponent implements OnInit {
   openAdd() {
     this.dialog.open(StudentFormComponent, { data: null })
       .afterClosed().subscribe(saved => { if (saved) this.loadStudents(); });
+  }
+
+  manageEnrollments(student: Student) {
+    this.dialog.open(StudentEnrollmentDialogComponent, { data: student, width: '520px' });
   }
 
   openEdit(student: Student) {

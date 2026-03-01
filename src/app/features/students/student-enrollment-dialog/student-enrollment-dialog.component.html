@@ -1,0 +1,63 @@
+<h2 mat-dialog-title>
+  <mat-icon style="vertical-align: middle; margin-right: 8px;">group</mat-icon>
+  Manage Enrollments — {{ fullName(student) }}
+</h2>
+
+<mat-dialog-content class="dialog-content">
+
+  @if (loading) {
+    <div class="center">
+      <mat-spinner diameter="40" />
+    </div>
+  } @else {
+
+    <h3 class="section-title">Enrolled Classes</h3>
+
+    @if (enrolledClasses.length === 0) {
+      <p class="empty-msg">Not enrolled in any classes yet.</p>
+    } @else {
+      <mat-list>
+        @for (cls of enrolledClasses; track cls.id) {
+          <mat-list-item>
+            <mat-icon matListItemIcon>class</mat-icon>
+            <span matListItemTitle>{{ cls.name }}</span>
+            <span matListItemLine>{{ cls.description }}</span>
+            <button matListItemMeta mat-icon-button color="warn"
+                    (click)="unenroll(cls)" title="Remove">
+              <mat-icon>remove_circle_outline</mat-icon>
+            </button>
+          </mat-list-item>
+        }
+      </mat-list>
+    }
+
+    <mat-divider style="margin: 16px 0" />
+
+    <h3 class="section-title">Enroll in Class</h3>
+
+    @if (availableClasses.length === 0) {
+      <p class="empty-msg">Student is enrolled in all available classes.</p>
+    } @else {
+      <div class="add-row">
+        <mat-form-field appearance="outline" class="class-select">
+          <mat-label>Select class</mat-label>
+          <mat-select [(ngModel)]="selectedClassId">
+            @for (c of availableClasses; track c.id) {
+              <mat-option [value]="c.id">{{ c.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary"
+                [disabled]="!selectedClassId || enrolling"
+                (click)="enroll()">
+          <mat-icon>add</mat-icon> Enroll
+        </button>
+      </div>
+    }
+  }
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

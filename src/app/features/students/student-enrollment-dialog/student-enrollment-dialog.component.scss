@@ -1,0 +1,39 @@
+.dialog-content {
+  min-width: 440px;
+  max-height: 520px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+}
+
+.section-title {
+  margin: 8px 0 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.empty-msg {
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.add-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  .class-select {
+    flex: 1;
+  }
+
+  button {
+    margin-bottom: 22px;
+  }
+}
