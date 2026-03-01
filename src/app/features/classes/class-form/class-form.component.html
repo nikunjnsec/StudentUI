@@ -14,6 +14,14 @@
       <textarea matInput formControlName="description" rows="3"></textarea>
     </mat-form-field>
 
+    <div class="status-field">
+      <label class="status-label">Status</label>
+      <mat-radio-group formControlName="isActive" class="radio-group">
+        <mat-radio-button [value]="true">Active</mat-radio-button>
+        <mat-radio-button [value]="false">Inactive</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
     <div class="row">
       <mat-form-field appearance="outline">
         <mat-label>Start Date</mat-label>

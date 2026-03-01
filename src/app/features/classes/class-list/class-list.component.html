@@ -23,6 +23,15 @@
         <td mat-cell *matCellDef="let c">{{ c.description }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="isActive">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let c">
+          <span [class]="c.isActive ? 'badge-active' : 'badge-inactive'">
+            {{ c.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="startDate">
         <th mat-header-cell *matHeaderCellDef>Start Date</th>
         <td mat-cell *matCellDef="let c">{{ c.startDate | date:'MM/dd/yy' }}</td>

@@ -18,3 +18,19 @@
 .full-width {
   width: 100%;
 }
+
+.status-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.status-label {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.radio-group {
+  display: flex;
+  gap: 24px;
+}

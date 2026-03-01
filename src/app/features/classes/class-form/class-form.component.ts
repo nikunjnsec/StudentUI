@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Class } from '../../../core/models/class.model';
 import { ClassService } from '../../../core/services/class.service';
@@ -14,7 +15,7 @@ import { ClassService } from '../../../core/services/class.service';
   imports: [
     ReactiveFormsModule,
     MatDialogModule, MatFormFieldModule, MatInputModule,
-    MatButtonModule, MatSnackBarModule
+    MatButtonModule, MatRadioModule, MatSnackBarModule
   ],
   templateUrl: './class-form.component.html',
   styleUrl: './class-form.component.scss'
@@ -32,6 +33,7 @@ export class ClassFormComponent implements OnInit {
   form = this.fb.group({
     name:        ['', Validators.required],
     description: [''],
+    isActive:    [true, Validators.required],
     startDate:   ['', Validators.required],
     endDate:     ['', Validators.required]
   });
@@ -42,6 +44,7 @@ export class ClassFormComponent implements OnInit {
       this.form.patchValue({
         name:        this.data.name,
         description: this.data.description ?? '',
+        isActive:    this.data.isActive,
         startDate:   this.data.startDate.substring(0, 10),
         endDate:     this.data.endDate.substring(0, 10)
       });
