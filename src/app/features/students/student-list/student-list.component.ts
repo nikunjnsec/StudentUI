@@ -29,7 +29,7 @@ export class StudentListComponent implements OnInit {
 
   students = signal<Student[]>([]);
   loading = signal(false);
-  displayedColumns = ['firstName', 'lastName', 'email', 'phoneNumber', 'enrolledAt', 'actions'];
+  displayedColumns = ['actions', 'firstName', 'lastName', 'email', 'phoneNumber', 'enrolledAt'];
 
   ngOnInit() {
     this.loadStudents();

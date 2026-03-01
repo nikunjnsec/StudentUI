@@ -36,7 +36,7 @@ export class SubjectListComponent implements OnInit {
   subjects = signal<SubjectRow[]>([]);
   classes = signal<Class[]>([]);
   loading = signal(false);
-  displayedColumns = ['name', 'description', 'className', 'actions'];
+  displayedColumns = ['actions', 'name', 'description', 'className'];
 
   ngOnInit() {
     this.load();

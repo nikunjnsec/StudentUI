@@ -30,7 +30,7 @@ export class ClassListComponent implements OnInit {
 
   classes = signal<Class[]>([]);
   loading = signal(false);
-  displayedColumns = ['name', 'description', 'startDate', 'endDate', 'actions'];
+  displayedColumns = ['actions', 'name', 'description', 'startDate', 'endDate'];
 
   ngOnInit() {
     this.loadClasses();
