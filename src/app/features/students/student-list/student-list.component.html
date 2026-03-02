@@ -5,13 +5,26 @@
   </button>
 </div>
 
+<mat-form-field appearance="outline" class="search-field">
+  <mat-label>Search</mat-label>
+  <mat-icon matPrefix>search</mat-icon>
+  <input matInput placeholder="First name, last name, email or phone"
+         [value]="searchQuery()"
+         (input)="searchQuery.set($any($event.target).value)" />
+  @if (searchQuery()) {
+    <button matSuffix mat-icon-button (click)="searchQuery.set('')" title="Clear">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+</mat-form-field>
+
 @if (loading()) {
   <div class="spinner-container">
     <mat-spinner diameter="48" />
   </div>
 } @else {
   <div class="table-container mat-elevation-z2">
-    <table mat-table [dataSource]="students()">
+    <table mat-table [dataSource]="filteredStudents()">
 
       <ng-container matColumnDef="firstName">
         <th mat-header-cell *matHeaderCellDef>First Name</th>

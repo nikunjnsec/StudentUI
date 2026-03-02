@@ -1,8 +1,10 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -18,6 +20,7 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
   imports: [
     DatePipe,
     MatTableModule, MatButtonModule, MatIconModule,
+    MatFormFieldModule, MatInputModule,
     MatDialogModule, MatSnackBarModule, MatProgressSpinnerModule
   ],
   templateUrl: './student-list.component.html',
@@ -30,7 +33,19 @@ export class StudentListComponent implements OnInit {
 
   students = signal<Student[]>([]);
   loading = signal(false);
+  searchQuery = signal('');
   displayedColumns = ['actions', 'firstName', 'lastName', 'email', 'phoneNumber', 'enrolledAt'];
+
+  filteredStudents = computed(() => {
+    const q = this.searchQuery().toLowerCase().trim();
+    if (!q) return this.students();
+    return this.students().filter(s =>
+      s.firstName.toLowerCase().includes(q) ||
+      s.lastName.toLowerCase().includes(q) ||
+      s.email.toLowerCase().includes(q) ||
+      (s.phoneNumber ?? '').toLowerCase().includes(q)
+    );
+  });
 
   ngOnInit() {
     this.loadStudents();
