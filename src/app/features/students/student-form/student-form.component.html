@@ -3,6 +3,32 @@
 <mat-dialog-content>
   <form [formGroup]="form" class="student-form" (ngSubmit)="onSave()">
     <button type="submit" style="display:none" [disabled]="saving"></button>
+
+    <!-- Photo upload section -->
+    <div class="photo-section">
+      <div class="photo-frame">
+        @if (previewUrl) {
+          <img [src]="previewUrl" class="photo-img" alt="Preview" />
+        } @else if (isEdit && existingPhotoUrl) {
+          <img [src]="existingPhotoUrl" class="photo-img" alt="Student photo"
+               (error)="existingPhotoUrl = null" />
+        } @else {
+          <div class="photo-placeholder">
+            <mat-icon>person</mat-icon>
+          </div>
+        }
+      </div>
+      <div class="photo-info">
+        <input #fileInput type="file" accept="image/*" style="display:none"
+               (change)="onFileSelected($event)" />
+        <button mat-stroked-button type="button" (click)="fileInput.click()">
+          <mat-icon>upload</mat-icon>
+          {{ previewUrl || (isEdit && existingPhotoUrl) ? 'Change Photo' : 'Upload Photo' }}
+        </button>
+        <span class="photo-hint">JPG, PNG, GIF — max 5 MB</span>
+      </div>
+    </div>
+
     <div class="row">
       <mat-form-field appearance="outline">
         <mat-label>First Name</mat-label>

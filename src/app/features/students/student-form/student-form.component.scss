@@ -18,3 +18,56 @@
 .full-width {
   width: 100%;
 }
+
+/* Photo upload */
+.photo-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.photo-frame {
+  flex-shrink: 0;
+  width: 88px;
+  height: 88px;
+}
+
+.photo-img {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e0e0e0;
+}
+
+.photo-placeholder {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-icon {
+    font-size: 44px;
+    width: 44px;
+    height: 44px;
+    color: rgba(0, 0, 0, 0.38);
+  }
+}
+
+.photo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.photo-hint {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.45);
+}
