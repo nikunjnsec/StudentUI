@@ -34,7 +34,7 @@ export class StudentListComponent implements OnInit {
   students = signal<Student[]>([]);
   loading = signal(false);
   searchQuery = signal('');
-  displayedColumns = ['actions', 'firstName', 'lastName', 'email', 'phoneNumber', 'enrolledAt'];
+  displayedColumns = ['actions', 'name', 'email', 'phoneNumber', 'enrolledAt'];
 
   filteredStudents = computed(() => {
     const q = this.searchQuery().toLowerCase().trim();

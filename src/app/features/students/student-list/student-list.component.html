@@ -26,14 +26,9 @@
   <div class="table-container mat-elevation-z2">
     <table mat-table [dataSource]="filteredStudents()">
 
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef>First Name</th>
-        <td mat-cell *matCellDef="let s">{{ s.firstName }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef>Last Name</th>
-        <td mat-cell *matCellDef="let s">{{ s.lastName }}</td>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let s">{{ s.lastName }}, {{ s.firstName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="email">
