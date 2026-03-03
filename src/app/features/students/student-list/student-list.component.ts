@@ -2,6 +2,7 @@ import { Component, ViewChild, inject, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +21,7 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
   standalone: true,
   imports: [
     DatePipe,
-    MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule,
+    MatTableModule, MatPaginatorModule, MatSortModule, MatButtonModule, MatIconModule,
     MatFormFieldModule, MatInputModule,
     MatDialogModule, MatSnackBarModule, MatProgressSpinnerModule
   ],
@@ -34,12 +35,15 @@ export class StudentListComponent implements OnInit {
 
   loading = signal(false);
   searchQuery = signal('');
-  displayedColumns = ['actions', 'name', 'email', 'phoneNumber', 'enrolledAt'];
+  displayedColumns = ['actions', 'lastName', 'firstName', 'email', 'phoneNumber', 'enrolledAt'];
   dataSource = new MatTableDataSource<Student>();
 
-  // Setter handles paginator being inside @if block — called when element enters the DOM
   @ViewChild(MatPaginator) set paginator(p: MatPaginator) {
     this.dataSource.paginator = p;
+  }
+
+  @ViewChild(MatSort) set sort(s: MatSort) {
+    this.dataSource.sort = s;
   }
 
   ngOnInit() {
