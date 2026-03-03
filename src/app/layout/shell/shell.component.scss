@@ -10,6 +10,13 @@
 
 .sidenav-header {
   min-height: 64px;
+  gap: 10px;
+}
+
+.sidenav-logo {
+  height: 36px;
+  width: 36px;
+  object-fit: contain;
 }
 
 .main-content {
