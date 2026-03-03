@@ -32,6 +32,18 @@
   padding: 24px;
   flex: 1;
   overflow: auto;
+  position: relative;
+}
+
+.watermark {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 160px;
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
 }
 
 .active-link {
