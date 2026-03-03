@@ -40,8 +40,11 @@ export class StudentFormComponent implements OnInit {
     lastName:    ['', Validators.required],
     email:       ['', [Validators.required, Validators.email]],
     dateOfBirth: ['', Validators.required],
-    phoneNumber: ['', Validators.required],
-    enrolledAt:  ['', Validators.required]
+    phoneNumber:      ['', Validators.required],
+    enrolledAt:       ['', Validators.required],
+    parentFirstName:  [''],
+    parentLastName:   [''],
+    parentContactInfo: ['']
   });
 
   ngOnInit() {
@@ -53,8 +56,11 @@ export class StudentFormComponent implements OnInit {
         lastName:    this.data.lastName,
         email:       this.data.email,
         dateOfBirth: this.data.dateOfBirth.substring(0, 10),
-        phoneNumber: this.data.phoneNumber,
-        enrolledAt:  this.data.enrolledAt.substring(0, 10)
+        phoneNumber:      this.data.phoneNumber,
+        enrolledAt:       this.data.enrolledAt.substring(0, 10),
+        parentFirstName:  this.data.parentFirstName ?? '',
+        parentLastName:   this.data.parentLastName ?? '',
+        parentContactInfo: this.data.parentContactInfo ?? ''
       });
     }
   }

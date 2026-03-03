@@ -72,6 +72,24 @@
         <mat-error>Required</mat-error>
       </mat-form-field>
     </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Parent First Name</mat-label>
+        <input matInput formControlName="parentFirstName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Parent Last Name</mat-label>
+        <input matInput formControlName="parentLastName" />
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Parent Contact Info</mat-label>
+      <input matInput formControlName="parentContactInfo"
+             placeholder="Email, phone, or any contact" />
+    </mat-form-field>
   </form>
 </mat-dialog-content>
 

@@ -6,4 +6,7 @@ export interface Student {
   dateOfBirth: string;
   phoneNumber: string;
   enrolledAt: string;
+  parentFirstName?: string;
+  parentLastName?: string;
+  parentContactInfo?: string;
 }
