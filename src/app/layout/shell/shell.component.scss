@@ -19,6 +19,13 @@
   object-fit: contain;
 }
 
+.toolbar-logo {
+  height: 36px;
+  width: 36px;
+  object-fit: contain;
+  margin-right: 10px;
+}
+
 .main-content {
   display: flex;
   flex-direction: column;

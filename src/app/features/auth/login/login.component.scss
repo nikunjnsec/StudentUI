@@ -11,6 +11,18 @@
   padding: 16px;
 }
 
+.login-logo-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+}
+
+.login-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
