@@ -35,7 +35,7 @@ export class StudentListComponent implements OnInit {
 
   loading = signal(false);
   searchQuery = signal('');
-  displayedColumns = ['actions', 'lastName', 'firstName', 'email', 'phoneNumber', 'enrolledAt'];
+  displayedColumns = ['actions', 'lastName', 'firstName', 'dateOfBirth', 'email', 'phoneNumber', 'enrolledAt'];
   dataSource = new MatTableDataSource<Student>();
 
   @ViewChild(MatPaginator) set paginator(p: MatPaginator) {
