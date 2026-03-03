@@ -1,6 +1,7 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, ViewChild, inject, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -17,7 +18,7 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
   standalone: true,
   imports: [
     DatePipe,
-    MatTableModule, MatButtonModule, MatIconModule,
+    MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule,
     MatDialogModule, MatSnackBarModule, MatProgressSpinnerModule
   ],
   templateUrl: './class-list.component.html',
@@ -28,9 +29,13 @@ export class ClassListComponent implements OnInit {
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
 
-  classes = signal<Class[]>([]);
   loading = signal(false);
   displayedColumns = ['actions', 'name', 'description', 'isActive', 'startDate', 'endDate'];
+  dataSource = new MatTableDataSource<Class>();
+
+  @ViewChild(MatPaginator) set paginator(p: MatPaginator) {
+    this.dataSource.paginator = p;
+  }
 
   ngOnInit() {
     this.loadClasses();
@@ -39,7 +44,7 @@ export class ClassListComponent implements OnInit {
   loadClasses() {
     this.loading.set(true);
     this.svc.getAll().subscribe({
-      next: data => { this.classes.set(data); this.loading.set(false); },
+      next: data => { this.dataSource.data = data; this.loading.set(false); },
       error: () => {
         this.loading.set(false);
         this.snackBar.open('Failed to load classes', 'Close', { duration: 3000 });

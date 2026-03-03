@@ -1,5 +1,6 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
+import { Component, ViewChild, inject, OnInit, signal } from '@angular/core';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -21,7 +22,7 @@ export interface SubjectRow extends Subject {
   selector: 'app-subject-list',
   standalone: true,
   imports: [
-    MatTableModule, MatButtonModule, MatIconModule,
+    MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule,
     MatDialogModule, MatSnackBarModule, MatProgressSpinnerModule
   ],
   templateUrl: './subject-list.component.html',
@@ -33,10 +34,14 @@ export class SubjectListComponent implements OnInit {
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
 
-  subjects = signal<SubjectRow[]>([]);
   classes = signal<Class[]>([]);
   loading = signal(false);
   displayedColumns = ['actions', 'name', 'description', 'className'];
+  dataSource = new MatTableDataSource<SubjectRow>();
+
+  @ViewChild(MatPaginator) set paginator(p: MatPaginator) {
+    this.dataSource.paginator = p;
+  }
 
   ngOnInit() {
     this.load();
@@ -51,10 +56,10 @@ export class SubjectListComponent implements OnInit {
       next: ({ subjects, classes }) => {
         this.classes.set(classes);
         const classMap = new Map(classes.map(c => [c.id, c.name]));
-        this.subjects.set(subjects.map(s => ({
+        this.dataSource.data = subjects.map(s => ({
           ...s,
           className: classMap.get(s.classId) ?? '—'
-        })));
+        }));
         this.loading.set(false);
       },
       error: () => {

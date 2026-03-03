@@ -1,6 +1,7 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, ViewChild, inject, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,7 +20,7 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
   standalone: true,
   imports: [
     DatePipe,
-    MatTableModule, MatButtonModule, MatIconModule,
+    MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule,
     MatFormFieldModule, MatInputModule,
     MatDialogModule, MatSnackBarModule, MatProgressSpinnerModule
   ],
@@ -31,35 +32,46 @@ export class StudentListComponent implements OnInit {
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
 
-  students = signal<Student[]>([]);
   loading = signal(false);
   searchQuery = signal('');
   displayedColumns = ['actions', 'name', 'email', 'phoneNumber', 'enrolledAt'];
+  dataSource = new MatTableDataSource<Student>();
 
-  filteredStudents = computed(() => {
-    const q = this.searchQuery().toLowerCase().trim();
-    if (!q) return this.students();
-    return this.students().filter(s =>
-      s.firstName.toLowerCase().includes(q) ||
-      s.lastName.toLowerCase().includes(q) ||
-      s.email.toLowerCase().includes(q) ||
-      (s.phoneNumber ?? '').toLowerCase().includes(q)
-    );
-  });
+  // Setter handles paginator being inside @if block — called when element enters the DOM
+  @ViewChild(MatPaginator) set paginator(p: MatPaginator) {
+    this.dataSource.paginator = p;
+  }
 
   ngOnInit() {
+    // Only match firstName, lastName, email, phoneNumber — not id/dates
+    this.dataSource.filterPredicate = (s, filter) =>
+      s.firstName.toLowerCase().includes(filter) ||
+      s.lastName.toLowerCase().includes(filter) ||
+      s.email.toLowerCase().includes(filter) ||
+      (s.phoneNumber ?? '').toLowerCase().includes(filter);
+
     this.loadStudents();
   }
 
   loadStudents() {
     this.loading.set(true);
     this.svc.getAll().subscribe({
-      next: data => { this.students.set(data); this.loading.set(false); },
+      next: data => { this.dataSource.data = data; this.loading.set(false); },
       error: () => {
         this.loading.set(false);
         this.snackBar.open('Failed to load students', 'Close', { duration: 3000 });
       }
     });
+  }
+
+  onSearch(value: string) {
+    this.searchQuery.set(value);
+    this.dataSource.filter = value.trim().toLowerCase();
+  }
+
+  clearSearch() {
+    this.searchQuery.set('');
+    this.dataSource.filter = '';
   }
 
   openAdd() {
